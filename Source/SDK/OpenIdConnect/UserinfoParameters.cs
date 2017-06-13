@@ -1,5 +1,5 @@
 using System.Collections.Generic;
-using System.Web;
+using System.Net;
 
 namespace PayPal.Api
 {
@@ -38,7 +38,7 @@ namespace PayPal.Api
         /// <param name="accessToken"></param>
         public void SetAccessToken(string accessToken)
         {
-            this.ContainerMap[UserinfoParameters.AccessToken] = HttpUtility.UrlEncode(accessToken);
+            this.ContainerMap[UserinfoParameters.AccessToken] = WebUtility.UrlEncode(accessToken);
         }
     }
 }

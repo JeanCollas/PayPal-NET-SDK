@@ -1,6 +1,6 @@
 ﻿using System.Collections.Generic;
 using System.Linq;
-using System.Web;
+using System.Net;
 
 namespace PayPal.Util
 {
@@ -19,7 +19,7 @@ namespace PayPal.Util
             (
                 "",
                 (parameters, item) =>
-                    parameters + (string.IsNullOrEmpty(item.Value) ? "" : ((string.IsNullOrEmpty(parameters) ? "?" : "&") + string.Format("{0}={1}", item.Key, HttpUtility.UrlEncode(item.Value))))
+                    parameters + (string.IsNullOrEmpty(item.Value) ? "" : ((string.IsNullOrEmpty(parameters) ? "?" : "&") + string.Format("{0}={1}", item.Key, WebUtility.UrlEncode(item.Value))))
             );
         }
     }

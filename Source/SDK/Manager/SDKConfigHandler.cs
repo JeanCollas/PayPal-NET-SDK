@@ -1,3 +1,4 @@
+#if NET45
 using System.Configuration;
 
 namespace PayPal
@@ -236,3 +237,4 @@ namespace PayPal
         }
     }
 }
+#endif

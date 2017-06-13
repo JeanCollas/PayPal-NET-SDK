@@ -61,20 +61,20 @@ namespace PayPal.Log
                         return;
                     }
 
-                    log4netCoreLoggerManagerGetMethodGetLogger = log4netCoreLoggerManager.GetMethod("GetLogger", new Type[] { typeof(Assembly), typeof(Type) });
+                    log4netCoreLoggerManagerGetMethodGetLogger = log4netCoreLoggerManager.GetRuntimeMethod("GetLogger", new Type[] { typeof(Assembly), typeof(Type) });
 
                     log4netCoreILogger = Type.GetType("log4net.Core.ILogger, log4net");
                     log4netCoreLevel = Type.GetType("log4net.Core.Level, log4net");
 
-                    log4netCoreLevelDebug = log4netCoreLevel.GetField("Debug").GetValue(null);
-                    log4netCoreLevelError = log4netCoreLevel.GetField("Error").GetValue(null);
-                    log4netCoreLevelInfo = log4netCoreLevel.GetField("Info").GetValue(null);
-                    log4netCoreLevelWarn = log4netCoreLevel.GetField("Warn").GetValue(null);
+                    log4netCoreLevelDebug = log4netCoreLevel.GetRuntimeField("Debug").GetValue(null);
+                    log4netCoreLevelError = log4netCoreLevel.GetRuntimeField("Error").GetValue(null);
+                    log4netCoreLevelInfo = log4netCoreLevel.GetRuntimeField("Info").GetValue(null);
+                    log4netCoreLevelWarn = log4netCoreLevel.GetRuntimeField("Warn").GetValue(null);
 
                     log4netUtilSystemStringFormat = Type.GetType("log4net.Util.SystemStringFormat, log4net");
 
-                    log4netCoreILoggerGetMethodLog = log4netCoreILogger.GetMethod("Log", new Type[] { typeof(Type), log4netCoreLevel, typeof(object), typeof(System.Exception) });
-                    log4netCoreILoggerGetMethodIsEnabledFor = log4netCoreILogger.GetMethod("IsEnabledFor", new Type[] { log4netCoreLevel });
+                    log4netCoreILoggerGetMethodLog = log4netCoreILogger.GetRuntimeMethod("Log", new Type[] { typeof(Type), log4netCoreLevel, typeof(object), typeof(System.Exception) });
+                    log4netCoreILoggerGetMethodIsEnabledFor = log4netCoreILogger.GetRuntimeMethod("IsEnabledFor", new Type[] { log4netCoreLevel });
 
                     if (log4netCoreLoggerManagerGetMethodGetLogger == null ||
                         log4netCoreILoggerGetMethodIsEnabledFor == null ||
@@ -91,7 +91,7 @@ namespace PayPal.Log
                         Type log4netXmlConfigurator = Type.GetType("log4net.Config.XmlConfigurator, log4net");
                         if (log4netXmlConfigurator != null)
                         {
-                            MethodInfo log4netXmlConfiguratorMethod = log4netXmlConfigurator.GetMethod("Configure", Type.EmptyTypes);
+                            MethodInfo log4netXmlConfiguratorMethod = log4netXmlConfigurator.GetRuntimeMethod("Configure", Type.EmptyTypes);
                             if (log4netXmlConfiguratorMethod != null)
                             {
                                 log4netXmlConfiguratorMethod.Invoke(null, null);
@@ -119,7 +119,7 @@ namespace PayPal.Log
                 return;
             }
 
-            this.log4netCoreLoggerManagerGetMethodGetLoggerInvoke = log4netCoreLoggerManagerGetMethodGetLogger.Invoke(null, new object[] { Assembly.GetCallingAssembly(), givenType });
+            this.log4netCoreLoggerManagerGetMethodGetLoggerInvoke = log4netCoreLoggerManagerGetMethodGetLogger.Invoke(null, new object[] { this.GetType().GetTypeInfo().Assembly, givenType });
         }
 
         /// <summary>

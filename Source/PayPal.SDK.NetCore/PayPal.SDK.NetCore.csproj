@@ -1,0 +1,195 @@
+﻿<Project Sdk="Microsoft.NET.Sdk">
+
+  <PropertyGroup>
+    <TargetFramework>netstandard1.4</TargetFramework>
+  </PropertyGroup>
+
+  <ItemGroup>
+    <Compile Include="..\SDK\Api\Address.cs" Link="API\Address.cs" />
+    <Compile Include="..\SDK\Api\Agreement.cs" Link="API\Agreement.cs" />
+    <Compile Include="..\SDK\Api\AgreementDetails.cs" Link="API\AgreementDetails.cs" />
+    <Compile Include="..\SDK\Api\AgreementStateDescriptor.cs" Link="API\AgreementStateDescriptor.cs" />
+    <Compile Include="..\SDK\Api\AgreementTransaction.cs" Link="API\AgreementTransaction.cs" />
+    <Compile Include="..\SDK\Api\AgreementTransactions.cs" Link="API\AgreementTransactions.cs" />
+    <Compile Include="..\SDK\Api\Amount.cs" Link="API\Amount.cs" />
+    <Compile Include="..\SDK\Api\APIContext.cs" Link="API\APIContext.cs" />
+    <Compile Include="..\SDK\Api\Authorization.cs" Link="API\Authorization.cs" />
+    <Compile Include="..\SDK\Api\BankAccount.cs" Link="API\BankAccount.cs" />
+    <Compile Include="..\SDK\Api\BankAccountList.cs" Link="API\BankAccountList.cs" />
+    <Compile Include="..\SDK\Api\BankToken.cs" Link="API\BankToken.cs" />
+    <Compile Include="..\SDK\Api\BaseAddress.cs" Link="API\BaseAddress.cs" />
+    <Compile Include="..\SDK\Api\BillingInfo.cs" Link="API\BillingInfo.cs" />
+    <Compile Include="..\SDK\Api\CancelNotification.cs" Link="API\CancelNotification.cs" />
+    <Compile Include="..\SDK\Api\Capture.cs" Link="API\Capture.cs" />
+    <Compile Include="..\SDK\Api\CarrierAccountToken.cs" Link="API\CarrierAccountToken.cs" />
+    <Compile Include="..\SDK\Api\CartBase.cs" Link="API\CartBase.cs" />
+    <Compile Include="..\SDK\Api\ChargeModel.cs" Link="API\ChargeModel.cs" />
+    <Compile Include="..\SDK\Api\Cost.cs" Link="API\Cost.cs" />
+    <Compile Include="..\SDK\Api\CreateProfileResponse.cs" Link="API\CreateProfileResponse.cs" />
+    <Compile Include="..\SDK\Api\Credit.cs" Link="API\Credit.cs" />
+    <Compile Include="..\SDK\Api\CreditCard.cs" Link="API\CreditCard.cs" />
+    <Compile Include="..\SDK\Api\CreditCardList.cs" Link="API\CreditCardList.cs" />
+    <Compile Include="..\SDK\Api\CreditCardToken.cs" Link="API\CreditCardToken.cs" />
+    <Compile Include="..\SDK\Api\Currency.cs" Link="API\Currency.cs" />
+    <Compile Include="..\SDK\Api\CurrencyConversion.cs" Link="API\CurrencyConversion.cs" />
+    <Compile Include="..\SDK\Api\CustomAmount.cs" Link="API\CustomAmount.cs" />
+    <Compile Include="..\SDK\Api\DetailedRefund.cs" Link="API\DetailedRefund.cs" />
+    <Compile Include="..\SDK\Api\Details.cs" Link="API\Details.cs" />
+    <Compile Include="..\SDK\Api\Error.cs" Link="API\Error.cs" />
+    <Compile Include="..\SDK\Api\ErrorDetails.cs" Link="API\ErrorDetails.cs" />
+    <Compile Include="..\SDK\Api\ExtendedBankAccount.cs" Link="API\ExtendedBankAccount.cs" />
+    <Compile Include="..\SDK\Api\ExternalFunding.cs" Link="API\ExternalFunding.cs" />
+    <Compile Include="..\SDK\Api\FileAttachment.cs" Link="API\FileAttachment.cs" />
+    <Compile Include="..\SDK\Api\FlowConfig.cs" Link="API\FlowConfig.cs" />
+    <Compile Include="..\SDK\Api\FmfDetails.cs" Link="API\FmfDetails.cs" />
+    <Compile Include="..\SDK\Api\FundingDetail.cs" Link="API\FundingDetail.cs" />
+    <Compile Include="..\SDK\Api\FundingInstrument.cs" Link="API\FundingInstrument.cs" />
+    <Compile Include="..\SDK\Api\FundingOption.cs" Link="API\FundingOption.cs" />
+    <Compile Include="..\SDK\Api\FundingSource.cs" Link="API\FundingSource.cs" />
+    <Compile Include="..\SDK\Api\FuturePayment.cs" Link="API\FuturePayment.cs" />
+    <Compile Include="..\SDK\Api\HyperSchema.cs" Link="API\HyperSchema.cs" />
+    <Compile Include="..\SDK\Api\Image.cs" Link="API\Image.cs" />
+    <Compile Include="..\SDK\Api\Incentive.cs" Link="API\Incentive.cs" />
+    <Compile Include="..\SDK\Api\InputFields.cs" Link="API\InputFields.cs" />
+    <Compile Include="..\SDK\Api\InstallmentInfo.cs" Link="API\InstallmentInfo.cs" />
+    <Compile Include="..\SDK\Api\InstallmentOption.cs" Link="API\InstallmentOption.cs" />
+    <Compile Include="..\SDK\Api\Invoice.cs" Link="API\Invoice.cs" />
+    <Compile Include="..\SDK\Api\InvoiceAddress.cs" Link="API\InvoiceAddress.cs" />
+    <Compile Include="..\SDK\Api\InvoiceItem.cs" Link="API\InvoiceItem.cs" />
+    <Compile Include="..\SDK\Api\InvoiceNumber.cs" Link="API\InvoiceNumber.cs" />
+    <Compile Include="..\SDK\Api\InvoiceSearchResponse.cs" Link="API\InvoiceSearchResponse.cs" />
+    <Compile Include="..\SDK\Api\InvoiceTemplate.cs" Link="API\InvoiceTemplate.cs" />
+    <Compile Include="..\SDK\Api\InvoiceTemplateData.cs" Link="API\InvoiceTemplateData.cs" />
+    <Compile Include="..\SDK\Api\InvoiceTemplates.cs" Link="API\InvoiceTemplates.cs" />
+    <Compile Include="..\SDK\Api\InvoiceTemplateSettings.cs" Link="API\InvoiceTemplateSettings.cs" />
+    <Compile Include="..\SDK\Api\InvoiceTemplateSettingsMetadata.cs" Link="API\InvoiceTemplateSettingsMetadata.cs" />
+    <Compile Include="..\SDK\Api\IPayPalSerializableObject.cs" Link="API\IPayPalSerializableObject.cs" />
+    <Compile Include="..\SDK\Api\Item.cs" Link="API\Item.cs" />
+    <Compile Include="..\SDK\Api\ItemList.cs" Link="API\ItemList.cs" />
+    <Compile Include="..\SDK\Api\JsonFormatter.cs" Link="API\JsonFormatter.cs" />
+    <Compile Include="..\SDK\Api\Links.cs" Link="API\Links.cs" />
+    <Compile Include="..\SDK\Api\Measurement.cs" Link="API\Measurement.cs" />
+    <Compile Include="..\SDK\Api\MerchantInfo.cs" Link="API\MerchantInfo.cs" />
+    <Compile Include="..\SDK\Api\MerchantPreferences.cs" Link="API\MerchantPreferences.cs" />
+    <Compile Include="..\SDK\Api\Metadata.cs" Link="API\Metadata.cs" />
+    <Compile Include="..\SDK\Api\NameValuePair.cs" Link="API\NameValuePair.cs" />
+    <Compile Include="..\SDK\Api\Notification.cs" Link="API\Notification.cs" />
+    <Compile Include="..\SDK\Api\OAuthTokenCredential.cs" Link="API\OAuthTokenCredential.cs" />
+    <Compile Include="..\SDK\Api\Order.cs" Link="API\Order.cs" />
+    <Compile Include="..\SDK\Api\OverrideChargeModel.cs" Link="API\OverrideChargeModel.cs" />
+    <Compile Include="..\SDK\Api\Participant.cs" Link="API\Participant.cs" />
+    <Compile Include="..\SDK\Api\Patch.cs" Link="API\Patch.cs" />
+    <Compile Include="..\SDK\Api\PatchRequest.cs" Link="API\PatchRequest.cs" />
+    <Compile Include="..\SDK\Api\Payee.cs" Link="API\Payee.cs" />
+    <Compile Include="..\SDK\Api\Payer.cs" Link="API\Payer.cs" />
+    <Compile Include="..\SDK\Api\PayerInfo.cs" Link="API\PayerInfo.cs" />
+    <Compile Include="..\SDK\Api\Payment.cs" Link="API\Payment.cs" />
+    <Compile Include="..\SDK\Api\PaymentCard.cs" Link="API\PaymentCard.cs" />
+    <Compile Include="..\SDK\Api\PaymentDefinition.cs" Link="API\PaymentDefinition.cs" />
+    <Compile Include="..\SDK\Api\PaymentDetail.cs" Link="API\PaymentDetail.cs" />
+    <Compile Include="..\SDK\Api\PaymentExecution.cs" Link="API\PaymentExecution.cs" />
+    <Compile Include="..\SDK\Api\PaymentHistory.cs" Link="API\PaymentHistory.cs" />
+    <Compile Include="..\SDK\Api\PaymentInstruction.cs" Link="API\PaymentInstruction.cs" />
+    <Compile Include="..\SDK\Api\PaymentOptions.cs" Link="API\PaymentOptions.cs" />
+    <Compile Include="..\SDK\Api\PaymentSummary.cs" Link="API\PaymentSummary.cs" />
+    <Compile Include="..\SDK\Api\PaymentTerm.cs" Link="API\PaymentTerm.cs" />
+    <Compile Include="..\SDK\Api\Payout.cs" Link="API\Payout.cs" />
+    <Compile Include="..\SDK\Api\PayoutBatch.cs" Link="API\PayoutBatch.cs" />
+    <Compile Include="..\SDK\Api\PayoutBatchHeader.cs" Link="API\PayoutBatchHeader.cs" />
+    <Compile Include="..\SDK\Api\PayoutItem.cs" Link="API\PayoutItem.cs" />
+    <Compile Include="..\SDK\Api\PayoutItemDetails.cs" Link="API\PayoutItemDetails.cs" />
+    <Compile Include="..\SDK\Api\PayoutRecipientType.cs" Link="API\PayoutRecipientType.cs" />
+    <Compile Include="..\SDK\Api\PayoutSenderBatchHeader.cs" Link="API\PayoutSenderBatchHeader.cs" />
+    <Compile Include="..\SDK\Api\PayoutTransactionStatus.cs" Link="API\PayoutTransactionStatus.cs" />
+    <Compile Include="..\SDK\Api\PayPalRelationalObject.cs" Link="API\PayPalRelationalObject.cs" />
+    <Compile Include="..\SDK\Api\PayPalResource.cs" Link="API\PayPalResource.cs" />
+    <Compile Include="..\SDK\Api\PayPalSerializableListObject.cs" Link="API\PayPalSerializableListObject.cs" />
+    <Compile Include="..\SDK\Api\PayPalSerializableObject.cs" Link="API\PayPalSerializableObject.cs" />
+    <Compile Include="..\SDK\Api\Phone.cs" Link="API\Phone.cs" />
+    <Compile Include="..\SDK\Api\Plan.cs" Link="API\Plan.cs" />
+    <Compile Include="..\SDK\Api\PlanList.cs" Link="API\PlanList.cs" />
+    <Compile Include="..\SDK\Api\PotentialPayerInfo.cs" Link="API\PotentialPayerInfo.cs" />
+    <Compile Include="..\SDK\Api\Presentation.cs" Link="API\Presentation.cs" />
+    <Compile Include="..\SDK\Api\ProcessorResponse.cs" Link="API\ProcessorResponse.cs" />
+    <Compile Include="..\SDK\Api\RecipientBankingInstruction.cs" Link="API\RecipientBankingInstruction.cs" />
+    <Compile Include="..\SDK\Api\RedirectUrls.cs" Link="API\RedirectUrls.cs" />
+    <Compile Include="..\SDK\Api\Refund.cs" Link="API\Refund.cs" />
+    <Compile Include="..\SDK\Api\RefundDetail.cs" Link="API\RefundDetail.cs" />
+    <Compile Include="..\SDK\Api\RefundRequest.cs" Link="API\RefundRequest.cs" />
+    <Compile Include="..\SDK\Api\RelatedResources.cs" Link="API\RelatedResources.cs" />
+    <Compile Include="..\SDK\Api\Sale.cs" Link="API\Sale.cs" />
+    <Compile Include="..\SDK\Api\Search.cs" Link="API\Search.cs" />
+    <Compile Include="..\SDK\Api\ShippingAddress.cs" Link="API\ShippingAddress.cs" />
+    <Compile Include="..\SDK\Api\ShippingCost.cs" Link="API\ShippingCost.cs" />
+    <Compile Include="..\SDK\Api\ShippingInfo.cs" Link="API\ShippingInfo.cs" />
+    <Compile Include="..\SDK\Api\Tax.cs" Link="API\Tax.cs" />
+    <Compile Include="..\SDK\Api\Terms.cs" Link="API\Terms.cs" />
+    <Compile Include="..\SDK\Api\Transaction.cs" Link="API\Transaction.cs" />
+    <Compile Include="..\SDK\Api\VerifyWebhookSignature.cs" Link="API\VerifyWebhookSignature.cs" />
+    <Compile Include="..\SDK\Api\VerifyWebhookSignatureResponse.cs" Link="API\VerifyWebhookSignatureResponse.cs" />
+    <Compile Include="..\SDK\Api\Webhook.cs" Link="API\Webhook.cs" />
+    <Compile Include="..\SDK\Api\WebhookEvent.cs" Link="API\WebhookEvent.cs" />
+    <Compile Include="..\SDK\Api\WebhookEventList.cs" Link="API\WebhookEventList.cs" />
+    <Compile Include="..\SDK\Api\WebhookEventType.cs" Link="API\WebhookEventType.cs" />
+    <Compile Include="..\SDK\Api\WebhookEventTypeList.cs" Link="API\WebhookEventTypeList.cs" />
+    <Compile Include="..\SDK\Api\WebhookList.cs" Link="API\WebhookList.cs" />
+    <Compile Include="..\SDK\Api\WebProfile.cs" Link="API\WebProfile.cs" />
+    <Compile Include="..\SDK\Api\WebProfileList.cs" Link="API\WebProfileList.cs" />
+    <Compile Include="..\SDK\BaseConstants.cs" Link="BaseConstants.cs" />
+    <Compile Include="..\SDK\Exception\AlgorithmNotSupportedException.cs" Link="Exception\AlgorithmNotSupportedException.cs" />
+    <Compile Include="..\SDK\Exception\ConfigException.cs" Link="Exception\ConfigException.cs" />
+    <Compile Include="..\SDK\Exception\ConnectionException.cs" Link="Exception\ConnectionException.cs" />
+    <Compile Include="..\SDK\Exception\HttpException.cs" Link="Exception\HttpException.cs" />
+    <Compile Include="..\SDK\Exception\IdentityError.cs" Link="Exception\IdentityError.cs" />
+    <Compile Include="..\SDK\Exception\IdentityException.cs" Link="Exception\IdentityException.cs" />
+    <Compile Include="..\SDK\Exception\InvalidCredentialException.cs" Link="Exception\InvalidCredentialException.cs" />
+    <Compile Include="..\SDK\Exception\MissingCredentialException.cs" Link="Exception\MissingCredentialException.cs" />
+    <Compile Include="..\SDK\Exception\OAuthException.cs" Link="Exception\OAuthException.cs" />
+    <Compile Include="..\SDK\Exception\PaymentsException.cs" Link="Exception\PaymentsException.cs" />
+    <Compile Include="..\SDK\Exception\PayPalException.cs" Link="Exception\PayPalException.cs" />
+    <Compile Include="..\SDK\HttpConnection.cs" Link="HttpConnection.cs" />
+    <Compile Include="..\SDK\Log\BaseLogger.cs" Link="Log\BaseLogger.cs" />
+    <Compile Include="..\SDK\Log\DiagnosticsLogger.cs" Link="Log\DiagnosticsLogger.cs" />
+    <Compile Include="..\SDK\Log\Log4netLogger.cs" Link="Log\Log4netLogger.cs" />
+    <Compile Include="..\SDK\Log\LogConfiguration.cs" Link="Log\LogConfiguration.cs" />
+    <Compile Include="..\SDK\Log\Logger.cs" Link="Log\Logger.cs" />
+    <Compile Include="..\SDK\Log\LogMessage.cs" Link="Log\LogMessage.cs" />
+    <Compile Include="..\SDK\Log\TraceSourceUtil.cs" Link="Log\TraceSourceUtil.cs" />
+    <Compile Include="..\SDK\Manager\CertificateManager.cs" Link="Manager\CertificateManager.cs" />
+    <Compile Include="..\SDK\Manager\ConfigManager.cs" Link="Manager\ConfigManager.cs" />
+    <Compile Include="..\SDK\Manager\ConnectionManager.cs" Link="Manager\ConnectionManager.cs" />
+    <Compile Include="..\SDK\Manager\SDKConfigHandler.cs" Link="Manager\SDKConfigHandler.cs" />
+    <Compile Include="..\SDK\OpenIdConnect\Address.cs" Link="OpenIdConnect\Address.cs" />
+    <Compile Include="..\SDK\OpenIdConnect\ClientCredentials.cs" Link="OpenIdConnect\ClientCredentials.cs" />
+    <Compile Include="..\SDK\OpenIdConnect\CreateFromAuthorizationCodeParameters.cs" Link="OpenIdConnect\CreateFromAuthorizationCodeParameters.cs" />
+    <Compile Include="..\SDK\OpenIdConnect\CreateFromRefreshTokenParameters.cs" Link="OpenIdConnect\CreateFromRefreshTokenParameters.cs" />
+    <Compile Include="..\SDK\OpenIdConnect\Tokeninfo.cs" Link="OpenIdConnect\Tokeninfo.cs" />
+    <Compile Include="..\SDK\OpenIdConnect\Userinfo.cs" Link="OpenIdConnect\Userinfo.cs" />
+    <Compile Include="..\SDK\OpenIdConnect\UserinfoParameters.cs" Link="OpenIdConnect\UserinfoParameters.cs" />
+    <Compile Include="..\SDK\SDKVersion.cs" Link="SDKVersion.cs" />
+    <Compile Include="..\SDK\UserAgentHeader.cs" Link="UserAgentHeader.cs" />
+    <Compile Include="..\SDK\Util\ArgumentValidator.cs" Link="Utils\ArgumentValidator.cs" />
+    <Compile Include="..\SDK\Util\Crc32.cs" Link="Utils\Crc32.cs" />
+    <Compile Include="..\SDK\Util\QueryParameters.cs" Link="Utils\QueryParameters.cs" />
+    <Compile Include="..\SDK\Util\SDKUtil.cs" Link="Utils\SDKUtil.cs" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <Folder Include="API\" />
+    <Folder Include="Exception\" />
+    <Folder Include="Log\" />
+    <Folder Include="Manager\" />
+    <Folder Include="Utils\" />
+    <Folder Include="OpenIdConnect\" />
+  </ItemGroup>
+
+  <ItemGroup>
+    <PackageReference Include="Microsoft.AspNetCore.WebUtilities" Version="1.1.2" />
+    <PackageReference Include="Newtonsoft.Json" Version="10.0.2" />
+    <PackageReference Include="System.Collections.Specialized" Version="4.3.0" />
+    <PackageReference Include="System.Diagnostics.TraceSource" Version="4.3.0" />
+    <PackageReference Include="System.Net.Requests" Version="4.3.0" />
+    <PackageReference Include="System.Security.Cryptography.Algorithms" Version="4.3.0" />
+  </ItemGroup>
+
+</Project>

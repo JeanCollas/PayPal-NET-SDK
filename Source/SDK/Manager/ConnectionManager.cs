@@ -34,18 +34,21 @@ namespace PayPal.Api
         /// </summary>
         private ConnectionManager()
         {
-#if NET_4_5 || NET_4_5_1
-            ServicePointManager.SecurityProtocol = ServicePointManager.SecurityProtocol | SecurityProtocolType.Tls12;
-#else
-            if(SDKUtil.IsNet45OrLaterDetected())
-            {
-                ServicePointManager.SecurityProtocol = ServicePointManager.SecurityProtocol | (SecurityProtocolType)0xC00;
-            }
-            else
-            {
-                this.logTlsWarning = true;
-            }
-#endif
+            //#if NET_4_5 || NET_4_5_1
+            //            ServicePointManager.SecurityProtocol = ServicePointManager.SecurityProtocol | SecurityProtocolType.Tls12;
+            //#else
+            //            if(SDKUtil.IsNet45OrLaterDetected())
+            //            {
+            //                ServicePointManager.SecurityProtocol = ServicePointManager.SecurityProtocol | (SecurityProtocolType)0xC00;
+            //            }
+            //            else
+            //            {
+            //                System.Net.ServicePointManager.SecurityProtocol = (SecurityProtocolType)3072;
+            //                this.logTlsWarning = true;
+            //            }
+            //#endif
+            logger.Warn("WARNING: No TLS .Net standard"); // #missingfeature
+            this.logTlsWarning = true;
         }
 
         /// <summary>
@@ -67,34 +70,39 @@ namespace PayPal.Api
                 throw new ConfigException("Invalid URI: " + url);
             }
 
+            logger.Warn("WARNING: Cannot set http request timeout on .Net standard"); // #missingfeature
+
             // Set connection timeout
-            int ConnectionTimeout = 0;
-            if(!config.ContainsKey(BaseConstants.HttpConnectionTimeoutConfig) ||
-                !int.TryParse(config[BaseConstants.HttpConnectionTimeoutConfig], out ConnectionTimeout)) {
-                int.TryParse(ConfigManager.GetDefault(BaseConstants.HttpConnectionTimeoutConfig), out ConnectionTimeout);
-            }
-            httpRequest.Timeout = ConnectionTimeout;
+            //int ConnectionTimeout = 0;
+            //if(!config.ContainsKey(BaseConstants.HttpConnectionTimeoutConfig) ||
+            //    !int.TryParse(config[BaseConstants.HttpConnectionTimeoutConfig], out ConnectionTimeout)) {
+            //    int.TryParse(ConfigManager.GetDefault(BaseConstants.HttpConnectionTimeoutConfig), out ConnectionTimeout);
+            //}
+            //httpRequest.Timeout = ConnectionTimeout;
+
+            logger.Warn("WARNING: HttpProxyAddress is not supported on .Net standard"); // #missingfeature
 
             // Set request proxy for tunnelling http requests via a proxy server
-            if(config.ContainsKey(BaseConstants.HttpProxyAddressConfig))
-            {
-                WebProxy requestProxy = new WebProxy();
-                requestProxy.Address = new Uri(config[BaseConstants.HttpProxyAddressConfig]);
-                if (config.ContainsKey(BaseConstants.HttpProxyCredentialConfig))
-                {
-                    string proxyCredentials = config[BaseConstants.HttpProxyCredentialConfig];
-                    string[] proxyDetails = proxyCredentials.Split(':');
-                    if (proxyDetails.Length == 2)
-                    {
-                        requestProxy.Credentials = new NetworkCredential(proxyDetails[0], proxyDetails[1]);
-                    }
-                }
-                httpRequest.Proxy = requestProxy;
-            }
+            //if (config.ContainsKey(BaseConstants.HttpProxyAddressConfig))
+            //{
+                //WebProxy requestProxy = new WebProxy();
+                //requestProxy.Address = new Uri(config[BaseConstants.HttpProxyAddressConfig]);
+                //if (config.ContainsKey(BaseConstants.HttpProxyCredentialConfig))
+                //{
+                //    string proxyCredentials = config[BaseConstants.HttpProxyCredentialConfig];
+                //    string[] proxyDetails = proxyCredentials.Split(':');
+                //    if (proxyDetails.Length == 2)
+                //    {
+                //        requestProxy.Credentials = new NetworkCredential(proxyDetails[0], proxyDetails[1]);
+                //    }
+                //}
+                //httpRequest.Proxy = requestProxy;
+            //}
 
-            // Don't set the Expect: 100-continue header as it's not supported
-            // well by Akamai and can negatively impact performance.
-            httpRequest.ServicePoint.Expect100Continue = false;
+            // Not available on .Net standard
+            //// Don't set the Expect: 100-continue header as it's not supported
+            //// well by Akamai and can negatively impact performance.
+            //httpRequest.ServicePoint.Expect100Continue = false;
 
             if(this.logTlsWarning)
             {

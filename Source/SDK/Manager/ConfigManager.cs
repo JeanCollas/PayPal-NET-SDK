@@ -1,6 +1,5 @@
 using System;
 using System.Collections.Generic;
-using System.Configuration;
 using PayPal.Log;
 
 namespace PayPal.Api
@@ -32,6 +31,9 @@ namespace PayPal.Api
             defaultConfig[BaseConstants.HttpConnectionTimeoutConfig] = "30000";
             defaultConfig[BaseConstants.HttpConnectionRetryConfig] = "3";
             defaultConfig[BaseConstants.ApplicationModeConfig] = BaseConstants.SandboxMode;
+
+            defaultConfig["PayPalLogger"] = "PayPal.Log.Log4netLogger";
+            defaultConfig["PayPalLogger.Delimiter"] = "|";
         }
 
         /// <summary>
@@ -60,6 +62,29 @@ namespace PayPal.Api
                 return singletonInstance;
             }
         }
+
+        public void SetConfig(string mode, string clientId, string clientSecret)
+        {
+            configValues[BaseConstants.ApplicationModeConfig] = mode;
+            configValues[BaseConstants.ClientId] = clientId;
+            configValues[BaseConstants.ClientSecret] = clientSecret;
+        }
+
+        public void SetConfig(Dictionary<string, string> config, bool reset = false)
+        {
+            if (reset) configValues.Clear();
+
+            foreach (var k in config)
+                configValues[k.Key] = k.Value;
+        }
+
+        public static string GetProperty(string key)
+        {
+            GetConfigWithDefaults(Instance.GetProperties()).TryGetValue(key, out string val);
+            return val;
+        }
+
+#if NET45
 
         /// <summary>
         /// Private constructor
@@ -133,6 +158,7 @@ namespace PayPal.Api
                 }
             }
         }
+#endif
 
         /// <summary>
         /// Returns all properties from the config file

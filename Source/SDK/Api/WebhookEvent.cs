@@ -11,6 +11,7 @@ using System.Text;
 using System.Security.Cryptography;
 using Newtonsoft.Json;
 using PayPal.Util;
+using System.Security.Cryptography.X509Certificates;
 
 namespace PayPal.Api
 {
@@ -207,9 +208,14 @@ namespace PayPal.Api
                 // Verify the received signature matches the expected signature.
                 if (isValid)
                 {
-                    var rsa = x509CertificateCollection[0].PublicKey.Key as RSACryptoServiceProvider;
+                    var rsa = x509CertificateCollection[0].GetRSAPublicKey();//.PublicKey.Key as RSACryptoServiceProvider;
                     var signatureBytes = Convert.FromBase64String(signature);
-                    isValid = rsa.VerifyData(expectedSignatureBytes, CryptoConfig.MapNameToOID(hashAlgorithm), signatureBytes);
+                    isValid = rsa.VerifyData(expectedSignatureBytes, signatureBytes,
+                        hashAlgorithm == "SHA1" ? HashAlgorithmName.SHA1 :
+                        hashAlgorithm == "SHA384" ? HashAlgorithmName.SHA384 :
+                        hashAlgorithm == "SHA512" ? HashAlgorithmName.SHA512 :
+                        HashAlgorithmName.SHA256, RSASignaturePadding.Pkcs1);
+                    //isValid = rsa.VerifyData(expectedSignatureBytes, CryptoConfig.MapNameToOID(hashAlgorithm), signatureBytes);
                 }
             }
             catch (PayPalException)

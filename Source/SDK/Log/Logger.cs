@@ -1,5 +1,6 @@
 ﻿using System;
 using System.Collections.Generic;
+using System.Linq;
 using System.Reflection;
 
 namespace PayPal.Log
@@ -23,8 +24,8 @@ namespace PayPal.Log
                     if (loggerType != null)
                     {
                         Type[] types = { typeof(Type) };
-                        ConstructorInfo infoConstructor = loggerType.GetConstructor( types );
-
+                        var constructors = loggerType.GetTypeInfo().DeclaredConstructors;
+                        ConstructorInfo infoConstructor = (from c in constructors where c.GetGenericArguments().Count() == 1 && c.GetGenericArguments()[0] == typeof(Type) select c).FirstOrDefault();
                         if (infoConstructor != null)
                         {
                             try

@@ -5,6 +5,7 @@ using System.Net;
 using System.IO;
 using System.Globalization;
 using PayPal.Log;
+using System.Threading.Tasks;
 
 namespace PayPal.Api
 {
@@ -131,12 +132,18 @@ namespace PayPal.Api
             newHttpRequest.Method = httpRequest.Method;
             newHttpRequest.Accept = httpRequest.Accept;
             newHttpRequest.ContentType = httpRequest.ContentType;
-            if (httpRequest.ContentLength > 0)
-            {
-                newHttpRequest.ContentLength = httpRequest.ContentLength;
-            }
-            newHttpRequest.UserAgent = httpRequest.UserAgent;
-            newHttpRequest.ClientCertificates = httpRequest.ClientCertificates;
+
+            logger.Warn("WARNING: No Http request content length .Net standard"); // #missingfeature
+
+            //if (httpRequest.ContentLength > 0)
+            //{
+            //    newHttpRequest.ContentLength = httpRequest.ContentLength;
+            //}
+
+            newHttpRequest.Headers[BaseConstants.UserAgentHeader] = httpRequest.Headers[BaseConstants.UserAgentHeader];
+            //newHttpRequest.UserAgent = httpRequest.UserAgent;
+            //newHttpRequest.ClientCertificates = httpRequest.ClientCertificates;
+            newHttpRequest.Credentials = httpRequest.Credentials;
             newHttpRequest = CopyHttpWebRequestHeaders(httpRequest, newHttpRequest);
             return newHttpRequest;
         }
@@ -152,7 +159,7 @@ namespace PayPal.Api
             string[] allKeys = httpRequest.Headers.AllKeys;
             foreach (string key in allKeys)
             {
-                switch (key.ToLower(CultureInfo.InvariantCulture))
+                switch (key.ToLower())
                 {
                     case "accept":
                     case "connection":
@@ -182,7 +189,7 @@ namespace PayPal.Api
         /// <param name="payLoad"></param>
         /// <param name="httpRequest"></param>
         /// <returns>A string containing the response from the remote host.</returns>
-        public string Execute(string payLoad, HttpWebRequest httpRequest)
+        public async Task<string> Execute(string payLoad, HttpWebRequest httpRequest)
         {
             int retriesConfigured = config.ContainsKey(BaseConstants.HttpConnectionRetryConfig) ?
                    Convert.ToInt32(config[BaseConstants.HttpConnectionRetryConfig]) : 0;
@@ -215,11 +222,11 @@ namespace PayPal.Api
                             case "POST":
                             case "PUT":
                             case "PATCH":
-                                using (StreamWriter writerStream = new StreamWriter(httpRequest.GetRequestStream()))
+                                using (StreamWriter writerStream = new StreamWriter(await httpRequest.GetRequestStreamAsync()))
                                 {
                                     writerStream.Write(payLoad);
                                     writerStream.Flush();
-                                    writerStream.Close();
+                                    writerStream.Dispose();
 
                                     if (ConfigManager.IsLiveModeEnabled(config))
                                     {
@@ -236,7 +243,7 @@ namespace PayPal.Api
                                 break;
                         }
 
-                        using (WebResponse responseWeb = httpRequest.GetResponse())
+                        using (WebResponse responseWeb = await httpRequest.GetResponseAsync())
                         {
                             // Store the response information
                             this.ResponseDetails.Headers = responseWeb.Headers;
@@ -308,7 +315,7 @@ namespace PayPal.Api
                         else if (ex.Status == WebExceptionStatus.Timeout)
                         {
                             // For connection timeout errors, include the connection timeout value that was used.
-                            var message = string.Format("{0} (HTTP request timeout was set to {1}ms)", ex.Message, httpRequest.Timeout);
+                            var message = string.Format("{0} (HTTP request timeout was set to {1}ms)", ex.Message, "timeout not available " /*httpRequest.Timeout*/);
                             rethrowEx = new ConnectionException(message, response, ex.Status, httpRequest);
                         }
                         else

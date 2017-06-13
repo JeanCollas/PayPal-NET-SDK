@@ -56,7 +56,9 @@ namespace PayPal.Api
         /// <returns>True = 64-bit, False = 32-bit</returns>
         private static bool Is64Bit()
         {
-            return Environment.Is64BitOperatingSystem;
+            return System.Runtime.InteropServices.RuntimeInformation.OSArchitecture == System.Runtime.InteropServices.Architecture.X64
+                || System.Runtime.InteropServices.RuntimeInformation.OSArchitecture == System.Runtime.InteropServices.Architecture.Arm64;
+
         }
 
         /// <summary>
@@ -67,12 +69,16 @@ namespace PayPal.Api
         /// <summary>
         /// Gets the name of the operating system.
         /// </summary>
-        private static string OperatingSystemName { get { return Environment.OSVersion.ToString(); } }
+        private static string OperatingSystemName { get { return System.Runtime.InteropServices.RuntimeInformation.OSDescription; } }
+        //private static string OperatingSystemName { get { return  Environment.OSVersion.ToString(); } }
 
         /// <summary>
         /// Gets the version of the current .NET common language runtime environment.
         /// </summary>
-        private static string DotNetClrVersion { get { return Environment.Version.ToString().Trim(); } }
+        private static string DotNetClrVersion { get {
+                return System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription;
+                //return Environment.Version.ToString().Trim();
+            } }
 
         /// <summary>
         /// Gets the version of the current .NET environment.
@@ -87,6 +93,8 @@ namespace PayPal.Api
                 return "4.5";
 #elif NET_4_5_1
                 return "4.5.1";
+#else
+                return System.Runtime.InteropServices.RuntimeInformation.FrameworkDescription;
 #endif
             }
         }

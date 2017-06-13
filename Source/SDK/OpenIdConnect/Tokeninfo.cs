@@ -1,9 +1,9 @@
 using System;
 using System.Text;
-using System.Web;
 using System.Collections.Generic;
 using Newtonsoft.Json;
 using PayPal.Util;
+using System.Net;
 
 namespace PayPal.Api
 {
@@ -140,7 +140,7 @@ namespace PayPal.Api
                 createFromRefreshTokenParameters.ContainerMap["client_secret"] = apiContext.Config[BaseConstants.ClientSecret];
             }
             string pattern = "v1/identity/openidconnect/tokenservice?grant_type={0}&refresh_token={1}&scope={2}&client_id={3}&client_secret={4}";
-            createFromRefreshTokenParameters.SetRefreshToken(HttpUtility.UrlEncode(refresh_token));
+            createFromRefreshTokenParameters.SetRefreshToken(WebUtility.UrlEncode(refresh_token));
             object[] parameters = new object[] { createFromRefreshTokenParameters };
             string resourcePath = SDKUtil.FormatURIPath(pattern, parameters);
             string payLoad = resourcePath.Substring(resourcePath.IndexOf('?') + 1);

@@ -1,6 +1,6 @@
 ﻿using System;
-using System.Configuration;
 using System.Collections.Generic;
+using PayPal.Api;
 
 namespace PayPal.Log
 {
@@ -74,7 +74,7 @@ namespace PayPal.Log
 
         private static string GetConfiguration(string name)
         {
-            return ConfigurationManager.AppSettings[name];
+            return ConfigManager.GetProperty(name);
         }
     }
 }

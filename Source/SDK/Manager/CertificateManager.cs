@@ -6,6 +6,7 @@ using System.Collections.Generic;
 using System.IO;
 using System.Linq;
 using System.Net;
+using System.Net.Http;
 using System.Reflection;
 using System.Security.Cryptography.X509Certificates;
 using System.Text.RegularExpressions;
@@ -78,10 +79,14 @@ namespace PayPal
             {
                 // Download the certificate.
                 string certData;
-                using (var webClient = new WebClient())
+                using (var httpClient = new HttpClient())
                 {
-                    certData = webClient.DownloadString(certUrl);
+                    certData = httpClient.GetStringAsync(certUrl).Result;
                 }
+                //using (var webClient = new WebClient())
+                //{
+                //    certData = webClient.DownloadString(certUrl);
+                //}
 
                 // Load all the certificates.
                 // NOTE: The X509Certificate2Collection.Import() method only
@@ -97,15 +102,16 @@ namespace PayPal
                     {
                         var certificate = new X509Certificate2(System.Text.Encoding.UTF8.GetBytes(trimmed));
 
+            logger.Warn("WARNING: Certificate not verified"); // #missingfeature
                         // Verify the certificate before adding it to the collection.
-                        if(certificate.Verify())
-                        {
+                        //if (certificate.Verify())
+                        //{
                             collection.Add(certificate);
-                        }
-                        else
-                        {
-                            throw new PayPalException("Unable to verify the certificate(s) found at " + certUrl);
-                        }
+                        //}
+                        //else
+                        //{
+                        //    throw new PayPalException("Unable to verify the certificate(s) found at " + certUrl);
+                        //}
                     }
                 }
 
@@ -129,7 +135,7 @@ namespace PayPal
                     return new X509Certificate2(File.ReadAllBytes(config[BaseConstants.TrustedCertificateLocation]));
                 }
 
-                using (var reader = Assembly.GetExecutingAssembly().GetManifestResourceStream("PayPal.Resources.DigiCertSHA2ExtendedValidationServerCA.crt"))
+                using (var reader = this.GetType().GetTypeInfo().Assembly.GetManifestResourceStream("PayPal.Resources.DigiCertSHA2ExtendedValidationServerCA.crt"))
                 using (var memoryStream = new MemoryStream())
                 {
                     reader.CopyTo(memoryStream);
@@ -171,10 +177,11 @@ namespace PayPal
             // also includes a match to the provided trusted certificate.
             foreach(var chainElement in chain.ChainElements)
             {
-                if(!chainElement.Certificate.Verify())
-                {
+                logger.Warn("WARNING: Certificate not verified"); // #missingfeature
+                //if (!chainElement.Certificate.Verify())
+                //{
                     return false;
-                }
+                //}
 
                 if(chainElement.Certificate.Thumbprint == trustedCert.Thumbprint)
                 {

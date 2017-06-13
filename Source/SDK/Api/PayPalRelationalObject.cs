@@ -1,7 +1,8 @@
 ﻿using System;
-using System.Web;
+using System.Net;
 using System.Collections.Generic;
 using Newtonsoft.Json;
+using Microsoft.Extensions.Primitives;
 
 namespace PayPal.Api
 {
@@ -59,7 +60,10 @@ namespace PayPal.Api
             var approvalUrl = this.GetApprovalUrl();
             if (!string.IsNullOrEmpty(approvalUrl))
             {
-                return HttpUtility.ParseQueryString((new Uri(approvalUrl)).Query).Get("token");
+                StringValues token;
+                var queryParts = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery((new Uri(approvalUrl)).Query).TryGetValue("token", out token);
+                return token;
+                //return WebUtility.ParseQueryString((new Uri(approvalUrl)).Query).Get("token");
             }
             return string.Empty;
         }

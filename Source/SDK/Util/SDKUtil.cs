@@ -1,11 +1,12 @@
 using System;
-using System.Web;
+using System.Net;
 using System.Collections.Generic;
 using System.Collections.Specialized;
 using System.Text;
 using System.Text.RegularExpressions;
 using PayPal.Api;
 using Microsoft.Win32;
+using System.Reflection;
 
 namespace PayPal.Util
 {
@@ -108,7 +109,7 @@ namespace PayPal.Util
                 }
                 foreach (KeyValuePair<string, string> entry in queryParameters)
                 {
-                    stringBuilder.Append(HttpUtility.UrlEncode(entry.Key, Encoding.UTF8)).Append("=").Append(HttpUtility.UrlEncode(entry.Value, Encoding.UTF8)).Append("&");
+                    stringBuilder.Append(WebUtility.UrlEncode(entry.Key)).Append("=").Append(WebUtility.UrlEncode(entry.Value)).Append("&");
                 }
                 formattedURIPath = stringBuilder.ToString();
             }
@@ -178,9 +179,10 @@ namespace PayPal.Util
             string[] query = pattern.Split('?');
             if (query.Length == 2 && query[1].Contains("={"))
             {
-                NameValueCollection queryParts = HttpUtility.ParseQueryString(query[1]);
+                var queryParts = Microsoft.AspNetCore.WebUtilities.QueryHelpers.ParseQuery(query[1]);
+                //NameValueCollection queryParts = WebUtility.ParseQueryString(query[1]);
 
-                foreach (string k in queryParts.AllKeys)
+                foreach (string k in queryParts.Keys)
                 {
                     string val = string.Empty;
                     if (parameters.TryGetValue(k.Trim(), out val))
@@ -291,7 +293,8 @@ namespace PayPal.Util
         /// <returns>A 3-digit version of the parent assembly.</returns>
         public static string GetAssemblyVersionForType(Type type)
         {
-            return type.Assembly.GetName().Version.ToString(3);
+            return type.GetType().GetTypeInfo().Assembly.GetName().Version.ToString(3);
+            //return type.Assembly.GetName().Version.ToString(3);
         }
 
         /// <summary>
@@ -300,67 +303,69 @@ namespace PayPal.Util
         /// <returns>True if .NET 4.5 or later is detected; false otherwise.</returns>
         public static bool IsNet45OrLaterDetected()
         {
-            var highestNetVersion = GetHighestInstalledNetVersion();
-            return highestNetVersion != null && highestNetVersion >= new Version(4, 5, 0, 0);
+            return false; // #missingfeature
+            //var highestNetVersion = GetHighestInstalledNetVersion();
+            //return highestNetVersion != null && highestNetVersion >= new Version(4, 5, 0, 0);
         }
 
-        /// <summary>
-        /// Gets the highest installed version of the .NET framework found on the system.
-        /// </summary>
-        /// <returns>A string containing the highest installed version of the .NET framework found on the system.</returns>
-        private static Version GetHighestInstalledNetVersion()
-        {
-            Version highestNetVersion = null;
 
-            try
-            {
-                // Opens the registry key for the .NET Framework entry.
-                using (var ndpKey = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, "").OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP\"))
-                {
-                    // As an alternative, if you know the computers you will query are running .NET Framework 4.5
-                    // or later, you can use:
-                    // using (RegistryKey ndpKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine,
-                    // RegistryView.Registry32).OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP\"))
-                    foreach (string versionKeyName in ndpKey.GetSubKeyNames())
-                    {
-                        if (versionKeyName.StartsWith("v"))
-                        {
-                            var versionKey = ndpKey.OpenSubKey(versionKeyName);
-                            var versionString = versionKey.GetValue("Version", "").ToString();
+        ///// <summary>
+        ///// Gets the highest installed version of the .NET framework found on the system.
+        ///// </summary>
+        ///// <returns>A string containing the highest installed version of the .NET framework found on the system.</returns>
+        //private static Version GetHighestInstalledNetVersion()
+        //{
+        //    Version highestNetVersion = null;
 
-                            if (string.IsNullOrEmpty(versionString))
-                            {
-                                foreach (string subKeyName in versionKey.GetSubKeyNames())
-                                {
-                                    var subKey = versionKey.OpenSubKey(subKeyName);
-                                    versionString = subKey.GetValue("Version", "").ToString();
+        //    try
+        //    {
+        //        // Opens the registry key for the .NET Framework entry.
+        //        using (var ndpKey = RegistryKey.OpenRemoteBaseKey(RegistryHive.LocalMachine, "").OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP\"))
+        //        {
+        //            // As an alternative, if you know the computers you will query are running .NET Framework 4.5
+        //            // or later, you can use:
+        //            // using (RegistryKey ndpKey = RegistryKey.OpenBaseKey(RegistryHive.LocalMachine,
+        //            // RegistryView.Registry32).OpenSubKey(@"SOFTWARE\Microsoft\NET Framework Setup\NDP\"))
+        //            foreach (string versionKeyName in ndpKey.GetSubKeyNames())
+        //            {
+        //                if (versionKeyName.StartsWith("v"))
+        //                {
+        //                    var versionKey = ndpKey.OpenSubKey(versionKeyName);
+        //                    var versionString = versionKey.GetValue("Version", "").ToString();
 
-                                    if (!string.IsNullOrEmpty(versionString))
-                                    {
-                                        var version = new Version(versionString);
-                                        if (highestNetVersion == null || highestNetVersion < version)
-                                        {
-                                            highestNetVersion = version;
-                                        }
-                                    }
-                                }
-                            }
-                            else
-                            {
-                                var version = new Version(versionString);
-                                if (highestNetVersion == null || highestNetVersion < version)
-                                {
-                                    highestNetVersion = version;
-                                }
-                            }
-                        }
-                    }
-                }
-            }
-            catch (Exception) { }
+        //                    if (string.IsNullOrEmpty(versionString))
+        //                    {
+        //                        foreach (string subKeyName in versionKey.GetSubKeyNames())
+        //                        {
+        //                            var subKey = versionKey.OpenSubKey(subKeyName);
+        //                            versionString = subKey.GetValue("Version", "").ToString();
 
-            return highestNetVersion;
-        }
+        //                            if (!string.IsNullOrEmpty(versionString))
+        //                            {
+        //                                var version = new Version(versionString);
+        //                                if (highestNetVersion == null || highestNetVersion < version)
+        //                                {
+        //                                    highestNetVersion = version;
+        //                                }
+        //                            }
+        //                        }
+        //                    }
+        //                    else
+        //                    {
+        //                        var version = new Version(versionString);
+        //                        if (highestNetVersion == null || highestNetVersion < version)
+        //                        {
+        //                            highestNetVersion = version;
+        //                        }
+        //                    }
+        //                }
+        //            }
+        //        }
+        //    }
+        //    catch (Exception) { }
+
+        //    return highestNetVersion;
+        //}
 
         #region Obsolete Methods
         /// <summary>

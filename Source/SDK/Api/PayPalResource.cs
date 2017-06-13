@@ -178,14 +178,16 @@ namespace PayPal.Api
                     //iso-8859-1
                     var iso8851 = Encoding.GetEncoding("iso-8859-1", new EncoderReplacementFallback(string.Empty), new DecoderExceptionFallback());
                     var bytes = Encoding.Convert(Encoding.UTF8, iso8851, Encoding.UTF8.GetBytes(headersMap[BaseConstants.UserAgentHeader]));
-                    httpRequest.UserAgent = iso8851.GetString(bytes);
+                    httpRequest.Headers["User-Agent"] = iso8851.GetString(bytes);
+                    //httpRequest.UserAgent = iso8851.GetString(bytes);
                     headersMap.Remove(BaseConstants.UserAgentHeader);
                 }
 
                 // Set Custom HTTP headers
                 foreach (KeyValuePair<string, string> entry in headersMap)
                 {
-                    httpRequest.Headers.Add(entry.Key, entry.Value);
+                    httpRequest.Headers[entry.Key] = entry.Value;
+                    //httpRequest.Headers.Add(entry.Key, entry.Value);
                 }
 
                 // Log the headers
@@ -201,7 +203,7 @@ namespace PayPal.Api
                 LastRequestDetails.Value = connectionHttp.RequestDetails;
                 LastResponseDetails.Value = connectionHttp.ResponseDetails;
 
-                var response = connectionHttp.Execute(payload, httpRequest);
+                var response = (connectionHttp.Execute(payload, httpRequest)).Result;
 
                 if (typeof(T).Name.Equals("Object"))
                 {
@@ -216,7 +218,8 @@ namespace PayPal.Api
                 if (formattedResponse is PayPalResource)
                 {
                     var responseHeaders = connectionHttp.ResponseDetails.Headers;
-                    String debugId = responseHeaders.Get("PayPal-Debug-Id");
+                    String debugId = responseHeaders["PayPal-Debug-Id"];
+                    //String debugId = responseHeaders.Get("PayPal-Debug-Id");
                     ((PayPalResource)(object)formattedResponse).SetDebugId(debugId);
 
                 }
