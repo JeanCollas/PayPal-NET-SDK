@@ -6,6 +6,8 @@
 
 The PayPal .NET SDK makes it easy to add PayPal support to your .NET web application and is built on [PayPal's REST APIs](https://developer.paypal.com/docs/api/).
 
+This version is a fork of the official SDK, with few changes mainly taken from @geoperez repository to make it **compatible with .Net Standard 1.6**
+
 ## TLSv1.2 Update
 > **The Payment Card Industry (PCI) Council has [mandated](http://blog.pcisecuritystandards.org/migrating-from-ssl-and-early-tls) that early versions of TLS be retired from service.  All organizations that handle credit card information are required to comply with this standard. As part of this obligation, PayPal is updating its services to require TLS 1.2 for all HTTPS connections. At this time, PayPal will also require HTTP/1.1 for all connections. [Click here](https://github.com/paypal/tls-update) for more information**
 
