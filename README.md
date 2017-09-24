@@ -1,4 +1,4 @@
-# PayPal .NET SDK => Modified for .Net Core
+# PayPal .NET SDK => Modified for .Net Standard, check "Core" branch
 
 ![Home Image](https://raw.githubusercontent.com/wiki/paypal/PayPal-NET-SDK/images/homepage.jpg)
 
