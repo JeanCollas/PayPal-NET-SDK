@@ -1,4 +1,6 @@
 # PayPal .NET SDK
+## This is a port of the official SDK to .Net Standard (compatible ASP.NET Core), Pull Request are welcome.
+
 
 ![Home Image](https://raw.githubusercontent.com/wiki/paypal/PayPal-NET-SDK/images/homepage.jpg)
 
