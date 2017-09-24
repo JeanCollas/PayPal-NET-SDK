@@ -1,3 +1,5 @@
+namespace PayPalNetStd
+{
     public class PayPalExecuteException : Exception
     {
         public PayPalExecuteErrors Error { get; set; }
@@ -10,3 +12,4 @@
             PayPalErrorTryAgain
         }
     }
+}
