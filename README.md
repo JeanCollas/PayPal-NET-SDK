@@ -1,4 +1,4 @@
-# PayPal .NET SDK => Modified for .Net Standard
+# PayPal .NET SDK / Modified for .Net Standard compatibility
 ## This is a port of the official SDK to .Net Standard (compatible ASP.NET Core), Pull Request are welcome.
 
 ### [Net Standard Sample](https://github.com/JeanCollas/PayPal-NETStandard-SDK/tree/Core/SamplesNetStandard) some bits of code to explain how to use the port.
